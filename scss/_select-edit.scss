@@ -1,0 +1,198 @@
+.select-gj8 {
+    &--edit {
+        margin-top: 3em; // Propiedad temporal
+        .select-gj8__label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            &__text {
+                text-transform: capitalize;
+                font-weight: 800;
+            }
+            &__action {
+                cursor: pointer;
+                color: $color-primary-light;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                &__icon {
+                    margin-right: 3px;
+                }
+            }
+        }
+        .select-gj8__content {
+            &--editing {
+                .select-gj8__content {
+                    &__add {
+                        display: block;
+                    }
+                }
+                .select-gj8__option {
+                    &__edit {
+                        display: flex;
+                        .material-icons {
+                            display: block;
+                        }
+                    }
+                }
+            }
+            top: 86px;
+            &__subtitle {
+                padding: 18px 18px 8px 18px;
+                font-size: 10px; // Mismo font-size
+                text-transform: uppercase;
+                font-weight: 800;
+                color: silver;
+                &__current {
+                    color: $color-primary-light;
+                    font-size: 10px; // Que este font-size
+                }
+            }
+            &__add {
+                display: none;
+                padding: 18px;
+                &__input {
+                    border: 2px solid silver;
+                    border-radius: 6px;
+                    background: white;
+                    padding: 13px;
+                    outline: none;
+                    width: 100%;
+                    display: block;
+                    &::placeholder {
+                        text-transform: capitalize;
+                        font-weight: 800;
+                    }
+                }
+            }
+        }
+        .select-gj8__option {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            animation: $fadeInLeft;
+            .material-icons {
+                color: #4b4b4b;
+            }
+            &__edit {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .material-icons {
+                    display: none;
+                }
+            }
+            &__trigger {
+                animation: $fadeInLeft;
+                &--hide {
+                    display: none !important;
+                }
+            }
+            &__name {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                &__input {
+                    display: none;
+                    border: none;
+                    text-transform: capitalize;
+                    cursor: pointer;
+                    margin-left: 3px;
+                    background: #000;
+                    // width: 100%;
+                    outline: none;
+                    &--active {
+                        display: block;
+                        animation: $fadeInDown;
+                        border: 2px solid silver;
+                        border-radius: 6px;
+                        padding: 10px;
+                        background: white;
+                    }
+                }
+                &__current {
+                    animation: $fadeInLeft;
+                    &--hide {
+                        display: none;
+                    }
+                }
+            }
+
+            &__settings {
+                display: none;
+                position: absolute;
+                top: -90px;
+                right: 8px;
+                flex-direction: column;
+                gap: 5px;
+                &--active {
+                    display: flex;
+                }
+                &__item {
+                    padding: 10px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    transition: $trs;
+                    font-weight: 800;
+                    border-radius: 200px;
+                    background: #fff;
+                    box-shadow: 0 4px 15px #00000026;
+                    opacity: 0;
+                    
+                    &:nth-child(1) {
+                        color: $color-blue;
+                        animation: $fadeInUp;
+                        animation-delay: 200ms;
+                        &:hover {
+                            background: $color-blue;
+                            color: $color-white;
+                        }
+                    }
+                    &:nth-child(2) {
+                        color: $color-red;
+                        animation: $fadeInUp;
+                        &:hover {
+                            background: $color-red;
+                            color: $color-white;
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+    }
+    &__btn {
+        width: 100%;
+        border-radius: 6px;
+        background: $color-primary-light;
+        transition: $trs;
+        padding: 6px;
+        border: none;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-top: 1em;
+        cursor: pointer;
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 3px 15px $color-primary-light;
+        }
+        &--add {
+            display: block;
+        }
+        &--option {
+            display: none;
+            width: 100%;
+            margin-top: 0;
+            margin-left: 5px;
+            &--active {
+                animation: $fadeInLeft;
+                display: block;
+            }
+        }
+    }
+
+}

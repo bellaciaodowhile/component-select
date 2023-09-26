@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select | Gloobal 8</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="select-gj8">
+        <div class="select-gj8__title">
+            <div class="select-gj8__title__current">Seleccione una opción:</div>
+            <i class="material-icons select-gj8__title__arrow">expand_more</i>
+        </div>
+        <div class="select-gj8__content">
+            <div class="select-gj8__option">Blanco</div>
+            <div class="select-gj8__option">Azul</div>
+            <div class="select-gj8__option">Amarillo</div>
+            <div class="select-gj8__option">Verde</div>
+            <div class="select-gj8__option">Morado</div>
+            <div class="select-gj8__option">Negro</div>
+            <div class="select-gj8__option">Rojo</div>
+        </div>
+    </div>
+
+    
+    <div class="select-gj8 select-gj8--edit">
+        <div class="select-gj8__label">
+            <div class="select-gj8__label__text">
+                división administrativa
+            </div>
+            <div class="select-gj8__label__action">
+                <i class="material-icons-outlined select-gj8__label__action__icon">drive_file_rename_outline</i>
+                <span class="select-gj8__label__action__text">Editar</span>
+            </div>
+        </div>
+        <div class="select-gj8__title">
+            <div class="select-gj8__title__current">Seleccione una opción:</div>
+            <i class="material-icons select-gj8__title__arrow">expand_more</i>
+        </div>
+        <div class="select-gj8__content">
+            <div class="select-gj8__content__subtitle">
+                divisiones administrativas: <span class="select-gj8__content__subtitle__current">españa</span>
+            </div>
+            <div class="select-gj8__content__add">
+                <form class="select-gj8__content__add__form">
+                    <input type="text" class="select-gj8__content__add__input" placeholder="nueva división administrativa" required autocomplete="off">
+                    <button type="submit" class="select-gj8__btn select-gj8__btn--add">
+                        agregar
+                    </button>
+                </form>
+            </div>
+            <div class="select-gj8__content__options">
+                <div class="select-gj8__option">
+                    <form class="select-gj8__option__edit">
+                        <div class="select-gj8__option__name">
+                            <i class="material-icons">drag_indicator</i>
+                            <div class="select-gj8__option__name__current">Blanco</div>
+                            <input type="text" disabled class="select-gj8__option__name__input" value="Blanco">
+                        </div>
+                        <i class="material-icons select-gj8__option__trigger">more_vert</i>
+                        <button type="submit" class="select-gj8__btn select-gj8__btn--option">
+                            <i class="material-icons-outlined">done</i>
+                        </button>
+                    </form>
+                    
+                    <div class="select-gj8__option__settings">
+                        <div class="select-gj8__option__settings__item">
+                            <i class="material-icons-outlined">drive_file_rename_outline</i>
+                        </div>
+                        <div class="select-gj8__option__settings__item">
+                            <i class="material-icons-outlined">delete</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
