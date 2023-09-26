@@ -64,14 +64,29 @@ function selectsGj8() {
         // Inicio de la instrucción:
 
         // Función para verificar si ya existe un registro dentro la BBDD
-        function dataRepeat(data) {
-            let nameCurrents = [...select.querySelectorAll('.select-gj8__option__name__current')]
-            if (nameCurrents.filter(x => x.textContent.toLowerCase().trim() == data.trim()).length >= 1) {
-                return true
+        function dataRepeat(data, notUse, current) {
+            console.log(notUse)
+            let nameCurrents = [...select.querySelectorAll('.select-gj8__option__name__current')];
+            console.log(nameCurrents)
+            if (current) {
+                let currentConditional = nameCurrents.filter(x => x.textContent.toLowerCase().trim() != data.toLowerCase().trim())
+                if (currentConditional.filter(x => x.textContent.toLowerCase().trim() == data.trim()).length >= 1) {
+                    return true
+                } else {
+                    return false
+                }
             } else {
-                return false
+                if (nameCurrents.filter(x => x.textContent.toLowerCase().trim() == data.toLowerCase().trim()).length >= 1) {
+                    return true
+                } else {
+                    return false
+                }
             }
-
+        }
+        // dataRepeat()
+        // Función para validar campos vacíos
+        function validationFields(input) {
+            return input.trim() == '' ? true : false
         }
 
         if (select.classList.contains('select-gj8--edit')) {
@@ -84,26 +99,26 @@ function selectsGj8() {
                 console.log('Hola vale')
                 let triggersItemEdit = [...select.querySelectorAll('.select-gj8__option__trigger')]
                 triggersItemEdit.map(trigger => {
+                    let name = trigger.parentElement.querySelector('.select-gj8__option__name__current')
+                    let input = trigger.parentElement.querySelector('.select-gj8__option__name__input')
+                    let allSettings = [...document.querySelectorAll('.select-gj8__option__settings--active')]
+                    let settings = trigger.parentElement.parentElement.querySelector('.select-gj8__option__settings')
+                    // Acción de editar
+                    let edit = settings.children[0] // edit item
+                    let del = settings.children[1] // delete item
+                    let saveEdit = trigger.nextElementSibling // botón submit de editar
+                    let itemOption = trigger.parentElement.parentElement // opción seleccionada
+
                     trigger.onclick = (e) => {
                         e.preventDefault();
-                        let name = trigger.parentElement.querySelector('.select-gj8__option__name__current')
-                        let input = trigger.parentElement.querySelector('.select-gj8__option__name__input')
-                        let allSettings = [...document.querySelectorAll('.select-gj8__option__settings--active')]
-                        let settings = trigger.parentElement.parentElement.querySelector('.select-gj8__option__settings')
+                        
                         settings.classList.toggle('select-gj8__option__settings--active')
+                        // Quitando las otras configuraciones (settings) activas
                         allSettings.map(config => {
                             if (config.classList.contains('select-gj8__option__settings--active')) {
                                 config.classList.remove('select-gj8__option__settings--active')
                             }
                         });
-                        // Acción de editar
-                        let edit = settings.children[0] // edit item
-                        let del = settings.children[1] // delete item
-                        let saveEdit = trigger.nextElementSibling // botón submit de editar
-
-
-                        // Aqui tenemos que buscar el form de la edición para colocarle el evento de submit ya que le boton solo no lo requiere
-
 
                         // Abriendo sección para editar
                         edit.onclick = (e) => {
@@ -114,34 +129,48 @@ function selectsGj8() {
                             input.classList.add('select-gj8__option__name__input--active')
                             input.disabled = false
                             saveEdit.classList.add('select-gj8__btn--option--active')
+
                             console.log('Editando: ', name.textContent)
-                        }
-                        // Guardando la edición
-                        console.log(saveEdit)
 
-                        // Aqui en vez de que sea el saveEdit tiene que ser el form de ese boton
-
-                        saveEdit.onsubmit = (e) => {
-                            e.preventDefault();
-                            if (input.value == ' ') {
-                                alert('Debe llenar este campo') 
-                            } else {
-                                if (dataRepeat(input.value)) {
-                                    alert('Este registro ya existe')
+                            saveEdit.onclick = (e) => {
+                                // Acá todo el proceso para editar un registro
+                                e.preventDefault();
+                                if (validationFields(input.value)) {
+                                    alert('Debe llenar este campo') 
                                 } else {
-                                    name.textContent = input.value
-                                    input.disabled = true
-                                    saveEdit.classList.remove('select-gj8__btn--option--active')
-                                    trigger.classList.remove('select-gj8__option__trigger--hide')
-                                    name.classList.remove('select-gj8__option__name__current--hide')
-                                    input.classList.remove('select-gj8__option__name__input--active')
-                                    console.log('Edición lista: ', input.value)
-                                    
+                                    let nameCurrents = [...select.querySelectorAll('.select-gj8__option__name__current')];
+                                    let vale = nameCurrents.filter(x => x.textContent.toLowerCase().trim() != input.value.toLowerCase().trim())
+                                    console.log(vale)
+                                    // if (vale.filter(x => x.textContent.trim() == input.value).length > 0) {
+                                    //     console.log('Es igual')
+                                    // } else {
+                                    //     console.log('Procede a editar sin problemas')
+                                    // }
+                                    console.log(vale.filter(x => x.textContent.toLowerCase().trim() == input.value.toLowerCase().trim()))
+                                    // dataRepeat(input.value, name.textContent, true)
+                                    // if (dataRepeat(input.value, name.textContent, true)) {
+                                    //     alert('Este registro ya existe')
+                                    // } else {
+                                    //     name.textContent = input.value
+                                    //     input.disabled = true
+                                    //     saveEdit.classList.remove('select-gj8__btn--option--active')
+                                    //     trigger.classList.remove('select-gj8__option__trigger--hide')
+                                    //     name.classList.remove('select-gj8__option__name__current--hide')
+                                    //     input.classList.remove('select-gj8__option__name__input--active')
+                                    // }
                                 }
                             }
-
+                        }
+                        // Eliminando item
+                        del.onclick = (e) => {
+                            e.preventDefault();
+                            if (confirm('¿Está seguro de eliminar este registro?')) {
+                                // Acá todo el proceso para eliminar el item o la opción seleccionada
+                                itemOption.remove()
+                            }
                         }
                     }
+                    
                 })
                 console.log(triggersItemEdit)
             }
@@ -170,7 +199,7 @@ function selectsGj8() {
                     e.preventDefault();
                     console.log('Registrando')
 
-                    if (input.value == ' ') {
+                    if (validationFields(input.value)) {
                         alert('Debe llenar el campo')
                     } else {
                         // Condicional para verificar que no hayan registro repetidos
@@ -183,7 +212,7 @@ function selectsGj8() {
                                 <div class="select-gj8__option__name">
                                     <i class="material-icons">drag_indicator</i>
                                     <div class="select-gj8__option__name__current"> ${ input.value.trim() } </div>
-                                    <input type="text" disabled class="select-gj8__option__name__input" value="${ input.value.trim() }">
+                                    <input type="text" required disabled class="select-gj8__option__name__input" value="${ input.value.trim() }">
                                 </div>
                                 <i class="material-icons select-gj8__option__trigger">more_vert</i>
                                 <button type="submit" class="select-gj8__btn select-gj8__btn--option">
