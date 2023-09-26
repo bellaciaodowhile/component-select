@@ -49,14 +49,9 @@ function selectsGj8() {
                     titleCurrent.textContent = name
                     content.classList.remove('select-gj8__content--active')
                     arrow.classList.remove('select-gj8__title__arrow--active')
-                    options.map(x => { if (x.classList.contains('select-gj8__option--active')) x.classList.remove('select-gj8__option--active')  } )
+                    reloadOptions()
                     option.classList.add('select-gj8__option--active');
                 }
-
-
-                
-
-
             };
         });
 
@@ -84,7 +79,6 @@ function selectsGj8() {
             let contentEditing = select.querySelector('.select-gj8__content')
             // Función para editar
             function selectEditItem() {
-                console.log('Hola vale')
                 let triggersItemEdit = [...select.querySelectorAll('.select-gj8__option__trigger')]
                 triggersItemEdit.map(trigger => {
                     let name = trigger.parentElement.querySelector('.select-gj8__option__name__current')
@@ -148,6 +142,8 @@ function selectsGj8() {
             selectEditItem() // Función para ejecutar las iteraciónes de los nuevos registros
             triggerMoreVert.onclick = (e) => {
                 e.preventDefault();
+                reloadOptions()
+                arrow.classList.add('select-gj8__title__arrow--active')
                 let optionEdit = triggerMoreVert.querySelector('.select-gj8__label__action__text')
                 let iconEdit = triggerMoreVert.querySelector('.select-gj8__label__action__icon')
                 let formAdd = content.querySelector('.select-gj8__content__add__form')
@@ -169,7 +165,6 @@ function selectsGj8() {
                 // Acción de agregar registro
                 formAdd.onsubmit = (e) => {
                     e.preventDefault();
-                    console.log('Registrando')
 
                     if (validationFields(input.value)) {
                         alert('Debe llenar el campo')
