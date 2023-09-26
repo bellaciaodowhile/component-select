@@ -11,11 +11,11 @@ function selectsGj8() {
             e.preventDefault();
             content.classList.toggle('select-gj8__content--active')
             arrow.classList.toggle('select-gj8__title__arrow--active')
-            console.log('Click select')
         };
-
-        // A todos los addEventListener('click') los tengo que cambiar por un onclick
-
+        // Reiniciar opciones activadas
+        function reloadOptions() {
+            options.map(x => { if (x.classList.contains('select-gj8__option--active')) x.classList.remove('select-gj8__option--active')  } )
+        }
         options.map((option, iOption) => {
             option.onclick = (e) => {
                 e.preventDefault();
@@ -64,26 +64,15 @@ function selectsGj8() {
         // Inicio de la instrucción:
 
         // Función para verificar si ya existe un registro dentro la BBDD
-        function dataRepeat(data, notUse, current) {
-            console.log(notUse)
+        function dataRepeat(data) {
             let nameCurrents = [...select.querySelectorAll('.select-gj8__option__name__current')];
-            console.log(nameCurrents)
-            if (current) {
-                let currentConditional = nameCurrents.filter(x => x.textContent.toLowerCase().trim() != data.toLowerCase().trim())
-                if (currentConditional.filter(x => x.textContent.toLowerCase().trim() == data.trim()).length >= 1) {
-                    return true
-                } else {
-                    return false
-                }
+            if (nameCurrents.filter(x => x.textContent.toLowerCase().trim() == data.toLowerCase().trim()).length >= 1) {
+                return true
             } else {
-                if (nameCurrents.filter(x => x.textContent.toLowerCase().trim() == data.toLowerCase().trim()).length >= 1) {
-                    return true
-                } else {
-                    return false
-                }
+                return false
             }
         }
-        // dataRepeat()
+
         // Función para validar campos vacíos
         function validationFields(input) {
             return input.trim() == '' ? true : false
@@ -92,7 +81,6 @@ function selectsGj8() {
         if (select.classList.contains('select-gj8--edit')) {
             // Acción more_vert
             let triggerMoreVert = select.querySelector('.select-gj8__label__action')
-            // 
             let contentEditing = select.querySelector('.select-gj8__content')
             // Función para editar
             function selectEditItem() {
@@ -129,35 +117,19 @@ function selectsGj8() {
                             input.classList.add('select-gj8__option__name__input--active')
                             input.disabled = false
                             saveEdit.classList.add('select-gj8__btn--option--active')
-
-                            console.log('Editando: ', name.textContent)
-
+                            // Guardando edición
                             saveEdit.onclick = (e) => {
                                 // Acá todo el proceso para editar un registro
                                 e.preventDefault();
                                 if (validationFields(input.value)) {
                                     alert('Debe llenar este campo') 
                                 } else {
-                                    let nameCurrents = [...select.querySelectorAll('.select-gj8__option__name__current')];
-                                    let vale = nameCurrents.filter(x => x.textContent.toLowerCase().trim() != input.value.toLowerCase().trim())
-                                    console.log(vale)
-                                    // if (vale.filter(x => x.textContent.trim() == input.value).length > 0) {
-                                    //     console.log('Es igual')
-                                    // } else {
-                                    //     console.log('Procede a editar sin problemas')
-                                    // }
-                                    console.log(vale.filter(x => x.textContent.toLowerCase().trim() == input.value.toLowerCase().trim()))
-                                    // dataRepeat(input.value, name.textContent, true)
-                                    // if (dataRepeat(input.value, name.textContent, true)) {
-                                    //     alert('Este registro ya existe')
-                                    // } else {
-                                    //     name.textContent = input.value
-                                    //     input.disabled = true
-                                    //     saveEdit.classList.remove('select-gj8__btn--option--active')
-                                    //     trigger.classList.remove('select-gj8__option__trigger--hide')
-                                    //     name.classList.remove('select-gj8__option__name__current--hide')
-                                    //     input.classList.remove('select-gj8__option__name__input--active')
-                                    // }
+                                    name.textContent = input.value
+                                    input.disabled = true
+                                    saveEdit.classList.remove('select-gj8__btn--option--active')
+                                    trigger.classList.remove('select-gj8__option__trigger--hide')
+                                    name.classList.remove('select-gj8__option__name__current--hide')
+                                    input.classList.remove('select-gj8__option__name__input--active')
                                 }
                             }
                         }
@@ -172,7 +144,6 @@ function selectsGj8() {
                     }
                     
                 })
-                console.log(triggersItemEdit)
             }
             selectEditItem() // Función para ejecutar las iteraciónes de los nuevos registros
             triggerMoreVert.onclick = (e) => {
@@ -195,6 +166,7 @@ function selectsGj8() {
                     titleCurrent.textContent = 'Seleccione una opción:'
                 }
                 contentEditing.classList.toggle('select-gj8__content--editing')
+                // Acción de agregar registro
                 formAdd.onsubmit = (e) => {
                     e.preventDefault();
                     console.log('Registrando')
@@ -239,7 +211,6 @@ function selectsGj8() {
                 
             }
         }   
-
         // Fin de la instrucción
     });
 }
